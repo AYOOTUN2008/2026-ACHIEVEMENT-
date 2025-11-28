@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your 2026 Prediction! 🔮</title>
 
-    <script async="async" data-cfasync="false" src="//forgottenoverlive.com/e25cdd6bab4123b3ae05b5651a9c37fe/invoke.js"></script>
-<div id="container-e25cdd6bab4123b3ae05b5651a9c37fe"></div>
-
     <style>
         /* --- General Setup --- */
         :root {
@@ -194,6 +191,79 @@
             transition: all 0.3s ease; /* Smooth transition for the blur */
         }
 
+        /* --- Updated Style for the Fixed Gifts Bar --- */
+.fixed-rewards-bar {
+    /* Positioning: Makes it sticky at the bottom and allows absolute positioning of children */
+    position: fixed;
+    bottom: 0; 
+    left: 0;
+    z-index: 1000; 
+    
+    /* Layout and Size */
+    width: 100%;
+    padding: 15px 10px;
+    text-align: center;
+    
+    /* Appearance */
+    font-size: 17px;
+    font-weight: 900;
+    text-decoration: none;
+    line-height: 1.4;
+    
+    /* Colors and Effects: Highly visible, festive red/gold */
+    background: linear-gradient(90deg, #f44336 0%, #ff5722 100%); 
+    color: white; 
+    border-top: 5px solid #ffeb3b; 
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2); 
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.fixed-rewards-bar:hover {
+    background: linear-gradient(90deg, #ff5722 0%, #f44336 100%); /* Reverse gradient on hover */
+}
+
+/* Style for the new edge button */
+.claim-edge-btn {
+    /* Positioning within the bar */
+    position: absolute;
+    right: 5px; /* Pushes it to the right edge */
+    top: 50%; /* Vertical centering */
+    transform: translateY(-50%);
+    
+    /* Appearance */
+    font-size: 14px;
+    font-weight: 900;
+    padding: 5px 10px;
+    border-radius: 8px;
+    
+    /* Colors - Make it contrast strongly */
+    background-color: #ffeb3b; /* Bright gold/yellow */
+    color: #333; /* Dark text */
+    cursor: pointer;
+    
+    /* Highlight effect */
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: translateY(-50%) scale(1); box-shadow: 0 0 0 0 rgba(255, 235, 59, 0.7); }
+    70% { transform: translateY(-50%) scale(1.05); box-shadow: 0 0 0 10px rgba(255, 235, 59, 0); }
+    100% { transform: translateY(-50%) scale(1); box-shadow: 0 0 0 0 rgba(255, 235, 59, 0); }
+}
+
+/* Make sure the text on smaller screens doesn't overflow */
+@media (max-width: 480px) {
+    .fixed-rewards-bar {
+        font-size: 15px;
+    }
+    .claim-edge-btn {
+        font-size: 11px; /* Smaller text on mobile */
+        padding: 4px 8px;
+        right: 2px;
+    }
+}
+
         /* --- NEW "Blurred Answer" Style --- */
         /* This makes the text invisible but leaves a "smudge" */
         .blurred-answer {
@@ -232,6 +302,41 @@
   50% {
     text-shadow: 0 0 30px hsl(var(--festive-gold) / 0.8), 0 0 60px hsl(var(--festive-gold) / 0.5);
   }
+}
+
+/* --- Gifts Button Styling --- */
+.rewards-btn {
+    /* Layout and Size */
+    display: block;
+    width: 100%;
+    max-width: 400px; /* Optional: Sets maximum width */
+    margin: 25px auto 10px; /* Centers the button and provides spacing */
+    padding: 18px 25px;
+    
+    /* Appearance */
+    font-size: 20px;
+    font-weight: 800;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 12px;
+    border: 3px solid #fff; /* White border for contrast */
+    
+    /* Colors and Effects */
+    background: linear-gradient(90deg, #ffc107 0%, #ff9800 100%); /* Gold/Orange Gradient */
+    color: #333; /* Dark text for readability */
+    box-shadow: 0 6px 20px rgba(255, 152, 0, 0.5); /* Strong shadow */
+    transition: all 0.3s ease;
+}
+
+.rewards-btn:hover {
+    /* Hover Effect */
+    transform: scale(1.03) translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255, 152, 0, 0.7);
+    color: #000;
+}
+/* You can use this class to initially hide it if you want it to pop up later */
+.hidden-on-start {
+    display: none;
 }
 
         /* --- Footer --- */
@@ -322,6 +427,10 @@
             <button type="submit" id="generateBtn" class="btn">See Your Future! ✨</button>
         </form>
 
+        <a href="https://forgottenoverlive.com/ver568zfeq?key=e98df3e1d6e5d4e8d4bdc1265d2747b5" id="giftsButton" class="rewards-btn hidden-on-start">
+    🎁 CLAIM YOUR GIFT! 💰
+</a>
+
         <div id="resultCard" class="hidden">
             <h2 id="resultHeader"></h2>
             <ul id="resultList">
@@ -400,6 +509,27 @@
         function getRandomAnswer(arr) {
             return arr[Math.floor(Math.random() * arr.length)];
         }
+
+        // Function to construct the WhatsApp share message
+function getShareMessage() {
+    // Note: Ensure nameInput and genderInput are defined outside this function
+    const name = nameInput.value.trim() || 'A Mystery Person';
+    const spouseType = genderInput.value === 'male' ? 'Wife' : 'Husband';
+
+    // Construct the revealed message text
+    return `
+🎉 MY 2026 FUTURE WAS JUST REVEALED! 🎉
+
+👤 Name: ${name}
+📈 I will become a *${generatedAnswers.become}*.
+🏡 Build a house? *${generatedAnswers.house}*
+🚗 Buy a car? *${generatedAnswers.car}*
+💍 My Future ${spouseType}: *${generatedAnswers.spouseName}*
+💰 Will I make it big? *${generatedAnswers.makeIt}*
+
+E GO SHOCK YOU! See YOUR own fate here: ${window.location.href}
+`.trim(); 
+}
 
         let generatedAnswers = {};
         let isFirstGeneration = true; // Tracks if it's the user's first time
@@ -505,37 +635,23 @@
             resultCard.classList.remove('hidden');
             resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
-
-        // --- 5. SHARE BUTTON LISTENER ---
-        shareBtn.addEventListener('click', function(e) {
-            e.preventDefault(); 
-
-            const shareMessage = encodeURIComponent(`I just saw my 2026 prediction! 😱 See what your future holds here: ${window.location.href}`);
-            const whatsappUrl = `https://api.whatsapp.com/send?text=${shareMessage}`;
-            
-            window.open(whatsappUrl, '_blank');
-            
-            // Set a timer to "reveal" the answers
-            setTimeout(revealAnswers, 2500); 
-        });
-
-        function showFakeNotification() {
-    const msgs = [
-        "🔥 New 2026 predictions available!",
-        "😂 Your future just updated — check it!",
-        "✨ Your 2026 destiny changed!",
-        "⬆️ New funny result added for you!",
-        "🔮 Tap to refresh your prediction!"
-    ];
-
-    const msg = msgs[Math.floor(Math.random() * msgs.length)];
-    const box = document.getElementById("notify");
-
-    box.innerHTML = msg;
-    box.style.display = "block";
-
-    setTimeout(() => { box.style.display = "none"; }, 4000);
-}
+// --- 5. SHARE BUTTON LISTENER (NEW FLOW) ---
+shareBtn.addEventListener('click', function(e) {
+    e.preventDefault(); 
+    
+    // 1. Get the fully revealed message text
+    const message = getShareMessage();
+    
+    // 2. Encode the text and create the WhatsApp link
+    const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+    
+    // 3. Open the link (The user sees the answers here)
+    window.open(whatsappUrl, '_blank');
+    
+    // 4. Reveal the answers on the website instantly
+    // This prepares the site for continuous use and rewards the click.
+    revealAnswersOnSite();
+});
 
 // show every 2–4 minutes
 setInterval(showFakeNotification, Math.floor(Math.random() * 2 + 2) * 60 * 1000);
@@ -574,6 +690,17 @@ function startLocalReminders() {
 }
     </script>
 
+    <script type="text/javascript">
+	atOptions = {
+		'key' : '306719b2d607655f8540d73df333c336',
+		'format' : 'iframe',
+		'height' : 50,
+		'width' : 320,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//forgottenoverlive.com/306719b2d607655f8540d73df333c336/invoke.js"></script>
+
     <button onclick="requestLocalNotifications()" 
 style="padding:12px 20px; background:#3b49df; color:white; border-radius:6px; border:none; font-weight:bold;">
     🔔 Enable 2026 Reminder Notifications
@@ -582,5 +709,10 @@ style="padding:12px 20px; background:#3b49df; color:white; border-radius:6px; bo
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     <script type='text/javascript' src='//pl28019877.effectivegatecpm.com/44/86/30/4486303378d4323fedcb2d8f96aa5720.js'></script>
+
+    <a href="YOUR_GIFT_LINK_HERE" id="fixedGiftsBar" class="fixed-rewards-bar">
+    🎁 CLAIM YOUR FREE DECEMBER GIFT NOW! 🎁
+    <span class="claim-edge-btn">CLICK HERE! ✨</span>
+</a>
 </body>
 </html>
