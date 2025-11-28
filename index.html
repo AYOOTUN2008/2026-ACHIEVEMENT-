@@ -510,24 +510,25 @@
             return arr[Math.floor(Math.random() * arr.length)];
         }
 
-        // Function to construct the WhatsApp share message
+       // Function to construct the WhatsApp share message (Optimized for Clickability)
 function getShareMessage() {
-    // Note: Ensure nameInput and genderInput are defined outside this function
     const name = nameInput.value.trim() || 'A Mystery Person';
     const spouseType = genderInput.value === 'male' ? 'Wife' : 'Husband';
-
-    // Construct the revealed message text
+    
+    // Construct the revealed message text. 
+    // We are deliberately keeping the link on its own line at the end 
+    // and using only *minimal* formatting for maximum stability.
     return `
-🎉 MY 2026 FUTURE WAS JUST REVEALED! 🎉
+🎉 MY 2026 FUTURE WAS JUST REVEALED! E GO SHOCK YOU! 🤯
 
 👤 Name: ${name}
-📈 I will become a *${generatedAnswers.become}*.
-🏡 Build a house? *${generatedAnswers.house}*
-🚗 Buy a car? *${generatedAnswers.car}*
-💍 My Future ${spouseType}: *${generatedAnswers.spouseName}*
-💰 Will I make it big? *${generatedAnswers.makeIt}*
+💼 Future: ${generatedAnswers.become}
+🏡 House/Car: ${generatedAnswers.house} / ${generatedAnswers.car}
+💍 Spouse: ${generatedAnswers.spouseName}
+💰 Made It: ${generatedAnswers.makeIt}
 
-E GO SHOCK YOU! See YOUR own fate here: ${window.location.href}
+See YOUR own fate here:
+${window.location.href} 
 `.trim(); 
 }
 
